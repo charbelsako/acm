@@ -6,10 +6,12 @@ using namespace std;
 
 int num_words(string str);
 void add_commas(string &str);
+// finds commas in the pargraph and returns the words previous and next to it.
 void get_words(int i, string &str);
 // adds a comma before or after (where) a give `word` in a `paragraph`
 void add_commas_to(string &paragraph, string word, char where);
 
+// value to indicate whether or not you should perform the algorithm again.
 int sentinel = 1;
 
 int main(void)
