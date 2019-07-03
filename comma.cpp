@@ -8,10 +8,7 @@ int num_words(string str);
 void add_commas(string str);
 void get_words(int i, string str);
 // adds a comma before or after (where) a give `word` in a `paragraph`
-string add_commas_to(string paragraph, string word, char where);
-
-// Seen results.
-// string memorized[];
+void add_commas_to(string &paragraph, string word, char where);
 
 int main(void)
 {
@@ -61,8 +58,6 @@ void add_commas(string paragraph)
 
 void get_words(int i, string str)
 {
-    // make a copy of the paragraph
-    string paragraph_copy = str;
     // or store results in global array with not duplicates.
 
     int j = i;
@@ -77,7 +72,7 @@ void get_words(int i, string str)
     {
         prev.push_back(str[k]);
     }
-    add_commas_to(paragraph_copy, prev, 'a');
+    add_commas_to(str, prev, 'a');
 
     // store into global array;
     // TODO
@@ -94,51 +89,41 @@ void get_words(int i, string str)
     {
         next.push_back(str[k]);
     }
-    add_commas_to(paragraph_copy, next, 'b');
+    add_commas_to(str, next, 'b');
     // store into global array;
     // TODO
+    cout << str << endl;
 }
 
-string add_commas_to(string paragraph, string word, char where)
+void add_commas_to(string &paragraph, string word, char where)
 {
-    string old_paragraph = paragraph;
-    char w[word.length() + 1];
-    word.copy(w, word.length());
-    cout << w;
-    size_t found = old_paragraph.find(word);
-    while (found != string::npos && found < old_paragraph.length())
-    {
+    size_t found = paragraph.find(word);
 
+    while (found != -1 && found < paragraph.length() - word.length())
+    {
         // cout << "found " << word << " at: " << found << '\n';
-        try
+        // cout << found + word.length() << " " << paragraph.length() << endl;
+        if (where == 'b')
         {
-            found = old_paragraph.find(w, found + 2);
-            if (found != -1)
+            if (paragraph[found - 2] != ',' && paragraph[found - 2] != '.')
             {
-                if (where == 'b')
-                {
-                    if (paragraph[found - 2] != ',' && paragraph[found - 2] != '.')
-                    {
-                        cout << "okay inserting " << found << endl;
-                        paragraph.insert(found, ",");
-                    }
-                }
-                else if (where == 'a')
-                {
-                    if (paragraph[found + word.length()] != ',' && paragraph[found + word.length()] != '.')
-                    {
-                        paragraph.insert(found + word.length(), ",");
-                    }
-                }
+                paragraph.insert(found - 1, ",");
+                // cout << "inserting at " << found + word.length() << endl;
             }
         }
-        catch (out_of_range)
+        else if (where == 'a')
         {
-            cout << "out of range" << endl;
-            break;
+            if (paragraph[found + word.length()] != ',' && paragraph[found + word.length()] != '.')
+            {
+                paragraph.insert(found + word.length(), ",");
+                // cout << "inserting at " << found + word.length() << endl;
+            }
         }
+
+        found = paragraph.find(word, found + word.length());
+        // cout << paragraph << endl;
     }
 
-    cout << paragraph << endl;
-    return paragraph;
+    // cout << paragraph << endl;
+    // return paragraph;
 }
