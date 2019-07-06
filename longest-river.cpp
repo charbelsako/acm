@@ -24,8 +24,10 @@ int main()
   int longest_index = 0;
   int longest_length = 0;
 
-  // the line width
+  // the line width. minimum value is longest word in text
   int line_width = 10;
+
+  // preprocess the input
 
   // determine the longest river.
   // loop over the text.
