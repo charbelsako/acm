@@ -1,0 +1,5 @@
+get 3 integers from the bitch
+
+n: number of inhabitants
+d: number of nights
+r: number of richest people (most rich going down).
