@@ -21,10 +21,6 @@ int main()
   // the text
   while (getline(cin, line))
   {
-    if (paragraph.length() > n)
-    {
-      break;
-    }
     if (paragraph.empty())
     {
       paragraph += line;
@@ -35,7 +31,9 @@ int main()
     }
   }
 
-  paragraph.push_back('.');
+  cout << endl
+       << "The real paragraph:" << endl;
+  cout << paragraph << endl;
 
   int longest_index = 0;
   int longest_length = 0;
@@ -46,6 +44,9 @@ int main()
   // preprocess the input
   string copy = trim_text(paragraph, line_width);
 
+  cout << copy;
+
+  return 0;
   // determine the longest river.
   // loop over the text.
   // find a space
@@ -59,44 +60,71 @@ int main()
   // temp variables for longest_length / index
   int temp_length;
   int temp_index;
-  for (int i = 0; i < n; i++)
+  for (int i = 0, n = copy.length(); i < n; i++)
   {
-    if (paragraph[i] == space)
+    if (copy[i] == space)
     {
       int temp_index = i;
       //        nested for/while loop from current index and inc by line_width
+      for (int j = i; i < n; i += line_width)
+      {
+        if (copy[i] == space || copy[i - 1] == space || copy[i + 1] == space)
+        {
+          temp_length++;
+          if (temp_length > longest_length)
+          {
+            longest_length = temp_length;
+            longest_index = temp_index;
+          }
+        }
+        else
+        {
+          break;
+        }
+      }
       //            if a consecutive space is found inc temp_length by 1
       //    if temp length is greater than longest_length update longest length
     }
   }
-  // cout << paragraph;
+
+  cout << longest_index << endl;
+  cout << longest_length << endl;
+
   return 0;
 }
 
 string trim_text(string paragraph, int line_width)
 {
+  bool new_line_space = false;
+  string new_paragraph;
   int j = 0;
   for (int i = 0, n = paragraph.length(); i < n; i++)
   {
-    if (paragraph.find(" ", i + 1) - i + j > line_width)
+    size_t in = paragraph.find(" ", i + 1);
+    if (in - i + j > line_width)
     {
-      cout << endl;
+      new_paragraph.append("\n");
       if (paragraph[i] == space)
       {
-        paragraph.replace(i, 1, "");
+        new_line_space = true;
       }
       j = 0;
     }
     if (j >= line_width)
     {
-      cout << endl;
+      new_paragraph.append("\n");
       if (paragraph[i] == space)
       {
-        paragraph.replace(i, 1, "");
+        new_line_space = true;
       }
       j = 0;
     }
     j++;
-    cout << paragraph[i];
+    if (!new_line_space)
+    {
+      new_paragraph.append(1, paragraph[i]);
+    }
   }
+
+  return new_paragraph;
 }
