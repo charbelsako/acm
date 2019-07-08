@@ -18,8 +18,21 @@ int main()
   // the text
   while (getline(cin, line))
   {
-    paragraph += line;
+    if (paragraph.length() > n)
+    {
+      break;
+    }
+    if (paragraph.empty())
+    {
+      paragraph += line;
+    }
+    else
+    {
+      paragraph += " " + line;
+    }
   }
+
+  paragraph.push_back('.');
 
   int longest_index = 0;
   int longest_length = 0;
@@ -28,6 +41,31 @@ int main()
   int line_width = 10;
 
   // preprocess the input
+  int j = 0;
+  for (int i = 0, n = paragraph.length(); i < n; i++)
+  {
+    if (paragraph.find(" ", i + 1) - i + j > line_width)
+    {
+
+      cout << endl;
+      if (paragraph[i] == space)
+      {
+        paragraph.replace(i, 1, "");
+      }
+      j = 0;
+    }
+    if (j >= line_width)
+    {
+      cout << endl;
+      if (paragraph[i] == space)
+      {
+        paragraph.replace(i, 1, "");
+      }
+      j = 0;
+    }
+    j++;
+    cout << paragraph[i];
+  }
 
   // determine the longest river.
   // loop over the text.
@@ -47,6 +85,6 @@ int main()
   //            if a consecutive space is found inc temp_length by 1
   //    if temp length is greater than longest_length update longest length
 
-  cout << paragraph;
+  // cout << paragraph;
   return 0;
 }
