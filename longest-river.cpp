@@ -4,7 +4,7 @@
 using namespace std;
 
 int get_longest_word(string paragraph);
-void trim_text(string paragraph, int line_width);
+string trim_text(string paragraph, int line_width);
 
 const char space = ' ';
 
@@ -44,31 +44,7 @@ int main()
   int line_width = 10;
 
   // preprocess the input
-  int j = 0;
-  for (int i = 0, n = paragraph.length(); i < n; i++)
-  {
-    if (paragraph.find(" ", i + 1) - i + j > line_width)
-    {
-
-      cout << endl;
-      if (paragraph[i] == space)
-      {
-        paragraph.replace(i, 1, "");
-      }
-      j = 0;
-    }
-    if (j >= line_width)
-    {
-      cout << endl;
-      if (paragraph[i] == space)
-      {
-        paragraph.replace(i, 1, "");
-      }
-      j = 0;
-    }
-    j++;
-    cout << paragraph[i];
-  }
+  string copy = trim_text(paragraph, line_width);
 
   // determine the longest river.
   // loop over the text.
@@ -95,4 +71,32 @@ int main()
   }
   // cout << paragraph;
   return 0;
+}
+
+string trim_text(string paragraph, int line_width)
+{
+  int j = 0;
+  for (int i = 0, n = paragraph.length(); i < n; i++)
+  {
+    if (paragraph.find(" ", i + 1) - i + j > line_width)
+    {
+      cout << endl;
+      if (paragraph[i] == space)
+      {
+        paragraph.replace(i, 1, "");
+      }
+      j = 0;
+    }
+    if (j >= line_width)
+    {
+      cout << endl;
+      if (paragraph[i] == space)
+      {
+        paragraph.replace(i, 1, "");
+      }
+      j = 0;
+    }
+    j++;
+    cout << paragraph[i];
+  }
 }
