@@ -3,6 +3,9 @@
 
 using namespace std;
 
+int get_longest_word(string paragraph);
+void trim_text(string paragraph, int line_width);
+
 const char space = ' ';
 
 int main()
@@ -78,13 +81,18 @@ int main()
   // then continue on with rest of the paragraph
 
   // temp variables for longest_length / index
-  // for loop
-  //    if to find a space
-  //        set temp_index = cur_index
-  //        nested for/while loop from current index and inc by line_width
-  //            if a consecutive space is found inc temp_length by 1
-  //    if temp length is greater than longest_length update longest length
-
+  int temp_length;
+  int temp_index;
+  for (int i = 0; i < n; i++)
+  {
+    if (paragraph[i] == space)
+    {
+      int temp_index = i;
+      //        nested for/while loop from current index and inc by line_width
+      //            if a consecutive space is found inc temp_length by 1
+      //    if temp length is greater than longest_length update longest length
+    }
+  }
   // cout << paragraph;
   return 0;
 }
