@@ -44,6 +44,9 @@ int main()
   // preprocess the input
   string copy = trim_text(paragraph, line_width);
 
+  cout << endl
+       << "The trimmed text"
+       << endl;
   cout << copy;
 
   return 0;
@@ -100,10 +103,12 @@ string trim_text(string paragraph, int line_width)
   int j = 0;
   for (int i = 0, n = paragraph.length(); i < n; i++)
   {
+    new_line_space = false;
     size_t in = paragraph.find(" ", i + 1);
     if (in - i + j > line_width)
     {
-      new_paragraph.append("\n");
+      // new_paragraph.append("\n");
+      cout << endl;
       if (paragraph[i] == space)
       {
         new_line_space = true;
@@ -113,6 +118,7 @@ string trim_text(string paragraph, int line_width)
     if (j >= line_width)
     {
       new_paragraph.append("\n");
+      // cout << endl;
       if (paragraph[i] == space)
       {
         new_line_space = true;
@@ -123,6 +129,7 @@ string trim_text(string paragraph, int line_width)
     if (!new_line_space)
     {
       new_paragraph.append(1, paragraph[i]);
+      // cout << paragraph[i];
     }
   }
 
