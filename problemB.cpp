@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     ifstream infile;
-    infile.open("dahab.in");
+    infile.open("input/dahab.in");
 
     string n;
     infile >> n;
