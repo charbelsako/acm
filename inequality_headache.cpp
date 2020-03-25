@@ -8,15 +8,15 @@ void permutations(int vp, string b, char va[], string a, string c, string d);
 int count = 0;
 
 int main() {
-    string a = "xy";
-    string b = "xy";
+    string a = "s";
+    string b = "s";
 
-    string c = "yx";
-    string d = "yx";
+    string c = "ss";
+    string d = "ss";
 
-    printf("%s\n", b.c_str());
-    
-    char va[2] = {'x', 'y'};
+    // TODO: this needs to be a dynamically sized array.
+    // Get the unique variables in a and d and put them in it.
+    char va[1] = {'s'};
     int vp = 0;
     
     permutations(vp, b, va, a, c, d);
@@ -30,28 +30,27 @@ void permutations(int vp, string b, char va[], string a, string c, string d) {
         if(pos != std::string::npos) {
             do {   
                 b[pos] = (char) i+48;   // overwrite
-                pos = b.find(va[vp], pos); // find next ocurrence
-            } while(pos != std::string::npos);
+                pos = b.find(va[vp], pos+1); // find next ocurrence
+            } while(pos != string::npos);
         }
 
         auto pos2 = c.find(va[vp]);
         if(pos2 != std::string::npos) {
             do {   
                 d[pos2] = (char) i+48;   // overwrite
-                pos2 = c.find(va[vp], pos2); // find next ocurrence
-            } while(pos2 != std::string::npos);
+                pos2 = c.find(va[vp], pos2+1); // find next ocurrence
+            } while(pos2 != string::npos);
         }
-        
-        if (vp < 2) {
-            // cout << "recursive" << endl;
-            // a is a pointer, hence the bug
+
+        // ERR: Number 1 needs to change
+        if (vp < 1) {
             int t_vp = vp;
             t_vp++;
             permutations(t_vp, b, va, a, c, d);
         } else {
-            // perform inequality if
-            // printf("%s\n", b.c_str());
-            count++;
+            if (b.compare(d) < 0) {
+                count++;
+            }
             return;
         }
     }
