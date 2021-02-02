@@ -33,23 +33,24 @@ int main() {
                 continue;
             }
 
+            int right_side = R, left_side = 0, ls = 0, rs = T;
+
             if (dir == 'X') {
+                left_side = (num - (R - num));
                 R = num;
             }else{
+                ls = num - (T - num);
                 T = num;
             }
 
             int size = folds.size();
             for (int k = 0; k < size; k++) {
-                int right_side, left_side;
                 if (dir == 'X'){ 
-                    left_side = folds[k][1] - num - num;
-                    right_side = folds[k][1] - num;
-                    folds.push_back({left_side, right_side, 0, T});
+                    right_side = R;
+                    folds.push_back({left_side, right_side, ls, rs});
                 }else{ 
-                    left_side = folds[k][3] - num - num;
-                    right_side = folds[k][3] - num;
-                    folds.push_back({0, R, left_side, right_side});
+                    rs = T;
+                    folds.push_back({left_side, right_side, ls, rs});
                 } 
             }
         }
